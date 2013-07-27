@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="style.css"></h:outputStylesheet>
+</h:head>
+<h:body>
+	<h:form>
+		<p:menubar>
+			<p:submenu label="Cadastro">
+				<p:menuitem value="Produtos" action="produto?faces-redirect=true"/>
+				<p:menuitem value="Notas Fiscais" action="notasfiscais?faces-redirect=true"/>
+				<p:menuitem value="Listagem" action="listagem?faces-redirect=true"/>
+			</p:submenu>
+		</p:menubar>
+	</h:form>
+
+	<div id="cabecalho">
+		<h2>UberDist</h2>
+	</div>
+	
+	<div id="conteudo">
+		<ui:insert name="conteudo"/>
+	</div>
+	
+	<div id="rodape" style="text-align: center">
+		Caelum - Turma JSF
+	</div>
+	
+</h:body>
+</html>

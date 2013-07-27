@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="US-ASCII" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:f="http://java.sun.com/jsf/core">
+	  
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="conteudo">
+		<h:form>
+			<fieldset>
+				<legend>Dados da Nota</legend>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="CNPJ" for="cnpj"/>
+					<h:inputText id="cnpj" value="#{notaFiscalBean.notaFiscal.cnpj}"/>
+					
+					<h:outputLabel value="Data" for="data"/>
+					<h:inputText id="data" value="#{notaFiscalBean.notaFiscal.data.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:inputText>
+				</h:panelGrid>
+			</fieldset>
+	
+			<fieldset>
+				<legend>Produto</legend>
+				<h:panelGrid columns="2">			
+					<h:outputLabel value="Selecione um produto"/>
+					<h:selectOneMenu value="#{notaFiscalBean.produtoId}">
+						<f:selectItem itemLabel="Selecione um produto" itemValue="0"></f:selectItem>
+						<f:selectItems value="#{produtoBean.lista}" var="produto" itemLabel="#{produto.nome}" itemValue="#{produto.id}"/>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Quantidade" for="quantidade"/>
+					<h:inputText id="quantidade" value="#{notaFiscalBean.item.quantidade}"/>
+				</h:panelGrid>
+				<h:commandButton value="Adicionar Item" action="#{notaFiscalBean.adicionaItem}"/>
+			</fieldset>
+			
+		
+			<h:dataTable value="#{notaFiscalBean.notaFiscal.itens}" var="item">
+				<h:column>
+					<f:facet name="header">Produto</f:facet>
+					#{item.produto.nome}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Quantidade</f:facet>
+					#{item.quantidade}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Valor</f:facet>
+					#{item.produto.preco}
+				</h:column>
+			</h:dataTable>			
+
+			<h:commandButton value="Cadastrar nota" action="#{notaFiscalBean.cadastraNotaFiscal}"></h:commandButton>
+			
+			<h:dataTable value="#{notaFiscalBean.notas}" var="notaFiscal">
+				<h:column>
+					<f:facet name="header">CNPJ</f:facet>
+					#{notaFiscal.cnpj}
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">Data</f:facet>
+					<h:outputLabel value="#{notaFiscal.data.time}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+					</h:outputLabel>
+				</h:column>
+			</h:dataTable>			
+		</h:form>
+	</ui:define>
+
+</ui:composition>	  
+
+</html>

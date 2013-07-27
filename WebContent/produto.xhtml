@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="_template.xhtml">
+
+	<ui:define name="conteudo">
+	
+	
+		Olá ${loginBean.usuario.login}! <br/>
+		<h:form>
+			<h:commandLink value="logout" action="#{loginBean.logout}"></h:commandLink>
+		</h:form>
+		<br/>
+		
+		<p:messages autoUpdate="true"/>
+		
+		<h:form id="form_cadastro">
+			<p:panelGrid columns="2">
+				Nome:
+				<h:inputText value="#{produtoBean.produto.nome}" styleClass="comCorVerde">
+					<f:validator validatorId="comecaComMaiuscula"/>
+				</h:inputText>
+				
+				
+				Preço
+				<h:inputText value="#{produtoBean.produto.preco}" id="preco" validatorMessage="Mínimo de R$ 0.05" required="true" requiredMessage="Preco obrigatório">
+					<f:validateDoubleRange minimum="0.05"/>
+				</h:inputText>
+				
+				<h:commandButton value="Cadastrar" action="#{produtoBean.cadastrar}" rendered="#{produtoBean.produto.id == null}">
+					<f:ajax execute="@form" render=":form_lista @form"/>
+				</h:commandButton>
+			</p:panelGrid>
+			<p:commandButton value="Atualizar" action="#{produtoBean.cadastrar}" rendered="#{produtoBean.produto.id != null}"/>
+		</h:form>
+		
+		<h:form id="form_lista">
+			<p:dataTable value="#{produtoBean.lista}" var="produto">
+				<p:column headerText="Nome">
+					#{produto.nome}
+				</p:column>
+					
+				<p:column headerText="Nome">
+					#{produto.preco}
+					<f:facet name="footer">Total: <h:outputText value="#{produtoBean.total}"/> </f:facet>
+				</p:column>	
+				
+				<p:column headerText="Editar">
+					<h:commandLink value="Editar">
+						<f:setPropertyActionListener target="#{produtoBean.produto}" value="#{produto}"/>
+						<f:ajax render=":form_cadastro"/>
+					</h:commandLink>
+				</p:column>
+				
+				<p:column headerText="Remover">
+					<h:commandLink value="Remover" action="#{produtoBean.remove(produto)}">
+						<f:ajax render="@form"/>
+					</h:commandLink>
+				</p:column>
+			</p:dataTable>	
+		</h:form>
+		
+	</ui:define>
+</ui:composition>
+
+</html>
