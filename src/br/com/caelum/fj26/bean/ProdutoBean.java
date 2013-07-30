@@ -27,6 +27,7 @@ public class ProdutoBean {
 	}
 	
 	public void cadastrar() {
+		System.out.println("cadastrar");
 		DAO<Produto> dao = new DAO<Produto>(Produto.class);
 		if (produto.getId() != null)
 			dao.atualiza(produto);
@@ -37,6 +38,7 @@ public class ProdutoBean {
 	}
 
 	public List<Produto> getLista() {
+		System.out.println("getLista");
 		if (this.produtos == null) {
 			DAO<Produto> dao = new DAO<Produto>(Produto.class);
 			this.produtos = dao.buscaTodos();
@@ -63,10 +65,12 @@ public class ProdutoBean {
 	}
 	
 	public Produto getProduto() {
+		System.out.println("getProduto");
 		return produto;
 	}
 
 	public void setProduto(Produto produto) {
+		System.out.println("setProduto");
 		this.produto = produto;
 	}
 
@@ -81,10 +85,12 @@ public class ProdutoBean {
 	}
 
 	public List<Produto> getProdutos() {
+		System.out.println("getProdutos");
 		return produtos;
 	}
 
 	public void setProdutos(List<Produto> produtos) {
+		System.out.println("setProdutos");
 		this.produtos = produtos;
 	}
 	
